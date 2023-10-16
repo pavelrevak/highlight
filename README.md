@@ -53,7 +53,7 @@ $ highlight -g c C connection.lock connection.unlock -g y G "gate open" "gate cl
 
 As color you can use any case and also only first character(s) like `Green`, `GRE` or `g`
 
-## help
+## Help
 
 ```
 $ highlight --help
@@ -74,4 +74,18 @@ options:
                         colorize match
   -g COLOR CHAR MATCH_START MATCH_END, --graph COLOR CHAR MATCH_START MATCH_END
                         draw vertical binary graph on left side
+```
+
+## Installation
+
+```
+git clone https://github.com/pavelrevak/highlight.git
+cd highlight
+pip install .
+```
+
+### Uninstall
+
+```
+pip uninstall log-highlighter
 ```
