@@ -8,7 +8,7 @@ Simple tool to highlight and graph text files, especially log files like text lo
 - colorize words or colorize whole line with text match
 - create simple binary graph, based on START and END text match
 
-### filter lines
+### Filter lines
 
 Print only lines with text ERROR and WARNING but exclude with text "open file" and "close file" (like `grep` or `grep -v` to exclude)
 
@@ -16,7 +16,7 @@ Print only lines with text ERROR and WARNING but exclude with text "open file" a
 $ highlight -i ERROR -i WARNING -e "open file" -e "close file"
 ```
 
-### highlight lines
+### Highlight lines
 
 Colorize lines to `red` containing text `ERROR`, to `yellow` with WARNING
 
@@ -24,7 +24,7 @@ Colorize lines to `red` containing text `ERROR`, to `yellow` with WARNING
 $ highlight -l r ERROR -l y WARNING
 ```
 
-### highlight word
+### Highlight word
 
 Colorize word `socket.read` to `blue` socket.write to `pink`.
 
@@ -32,13 +32,16 @@ Colorize word `socket.read` to `blue` socket.write to `pink`.
 $ highlight -w b socket.read -l p socket.write
 ```
 
-### graph
+### Graph
 
 Create vertical graph line with `cyan` character `C` where start is with text `connection.lock` and stops with `connection.unlock` and `yellow` `G` starting `gate open` ending `gate close`
 
 ```
 $ highlight -g c C connection.lock connection.unlock -g y G "gate open" "gate close"
 ```
+
+### Preview
+<img width="933" alt="Screenshot 2023-10-16 at 22 58 54" src="https://github.com/pavelrevak/highlight/assets/9936533/574c6df7-3309-4ec5-8952-dbabf491382e">
 
 ## supported colors
 
