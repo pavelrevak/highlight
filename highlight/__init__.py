@@ -6,13 +6,45 @@ import argparse as _argparse
 
 COLORS = {
     'default': '\033[0m',
-    'red': '\033[91m',
-    'yellow': '\033[93m',
-    'green': '\033[92m',
-    'cyan': '\033[96m',
-    'blue': '\033[94m',
-    'pink': '\033[95m',
-    'white': '\033[90m',
+    'black': '\033[30m',
+    'red': '\033[31m',
+    'yellow': '\033[33m',
+    'green': '\033[32m',
+    'cyan': '\033[36m',
+    'blue': '\033[34m',
+    'magenta': '\033[35m',
+    'pink': '\033[35m',
+    'white': '\033[37m',
+
+    'gray': '\033[90m',
+    'lred': '\033[91m',
+    'lyellow': '\033[93m',
+    'lgreen': '\033[92m',
+    'lcyan': '\033[96m',
+    'lblue': '\033[94m',
+    'lmagenta': '\033[95m',
+    'lpink': '\033[95m',
+    'lwhite': '\033[97m',
+
+    'iblack': '\033[40m\033[97m',
+    'ired': '\033[41m\033[97m',
+    'iyellow': '\033[43m\033[97m',
+    'igreen': '\033[42m\033[97m',
+    'icyan': '\033[46m\033[97m',
+    'iblue': '\033[44m\033[97m',
+    'imagenta': '\033[45m\033[97m',
+    'ipink': '\033[45m\033[97m',
+    'iwhite': '\033[47m\033[30m',
+
+    'igray': '\033[100m\033[97m',
+    'ilred': '\033[101m\033[30m',
+    'ilyellow': '\033[103m\033[30m',
+    'ilgreen': '\033[102m\033[30m',
+    'ilcyan': '\033[106m\033[30m',
+    'ilblue': '\033[104m\033[30m',
+    'ilmagenta': '\033[105m\033[30m',
+    'ilpink': '\033[105m\033[30m',
+    'ilwhite': '\033[107m\033[30m',
 }
 
 DEFAULT_COLOR = COLORS['default']
@@ -61,7 +93,7 @@ def process(args):
 
     graph = []
     if args.graph:
-        for mark, color, start, stop in args.graph:
+        for color, mark, start, stop in args.graph:
             graph.append(' ' * len(mark))
 
     for line in _fileinput.input(args.files):
@@ -77,7 +109,7 @@ def process(args):
                 if start in line:
                     graph[index] = color_value + mark + DEFAULT_COLOR
                 elif stop in line:
-                    graph[index] = color_value + '.' + DEFAULT_COLOR
+                    graph[index] = color_value + '.' * len(mark) + DEFAULT_COLOR
         line_color = None
         if args.line:
             for color, patterns in highlight_line.items():
