@@ -45,14 +45,59 @@ $ highlight -g c C connection.lock connection.unlock -g y G "gate open" "gate cl
 
 ## supported colors
 
-- `default` - default terminal color
+### foreground colors
+
+#### normal
+
+- `default`
+- `black`
 - `red`
 - `yellow`
 - `green`
 - `cyan`
 - `blue`
+- `magenta`
 - `pink`
 - `white`
+
+#### light
+
+- `gray`
+- `lred`
+- `lyellow`
+- `lgreen`
+- `lcyan`
+- `lblue`
+- `lmagenta`
+- `lpink`
+- `lwhite`
+
+### backround colors (inverse)
+
+#### normal
+
+- `idefault`
+- `iblack`
+- `ired`
+- `iyellow`
+- `igreen`
+- `icyan`
+- `iblue`
+- `imagenta`
+- `ipink`
+- `iwhite`
+
+#### light
+
+- `igray`
+- `ilred`
+- `ilyellow`
+- `ilgreen`
+- `ilcyan`
+- `ilblue`
+- `ilmagenta`
+- `ilpink`
+- `ilwhite`
 
 As color you can use any case and also only first character(s) like `Green`, `GRE` or `g`
 
