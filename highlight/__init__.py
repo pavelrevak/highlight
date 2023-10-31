@@ -5,49 +5,28 @@ import argparse as _argparse
 
 
 COLORS = {
-    'default': '\033[0m',
-    'black': '\033[30m',
-    'red': '\033[31m',
-    'yellow': '\033[33m',
-    'green': '\033[32m',
-    'cyan': '\033[36m',
-    'blue': '\033[34m',
-    'magenta': '\033[35m',
-    'pink': '\033[35m',
-    'white': '\033[37m',
-
-    'gray': '\033[90m',
-    'lred': '\033[91m',
-    'lyellow': '\033[93m',
-    'lgreen': '\033[92m',
-    'lcyan': '\033[96m',
-    'lblue': '\033[94m',
-    'lmagenta': '\033[95m',
-    'lpink': '\033[95m',
-    'lwhite': '\033[97m',
-
-    'iblack': '\033[40m\033[97m',
-    'ired': '\033[41m\033[97m',
-    'iyellow': '\033[43m\033[97m',
-    'igreen': '\033[42m\033[97m',
-    'icyan': '\033[46m\033[97m',
-    'iblue': '\033[44m\033[97m',
-    'imagenta': '\033[45m\033[97m',
-    'ipink': '\033[45m\033[97m',
-    'iwhite': '\033[47m\033[30m',
-
-    'igray': '\033[100m\033[97m',
-    'ilred': '\033[101m\033[30m',
-    'ilyellow': '\033[103m\033[30m',
-    'ilgreen': '\033[102m\033[30m',
-    'ilcyan': '\033[106m\033[30m',
-    'ilblue': '\033[104m\033[30m',
-    'ilmagenta': '\033[105m\033[30m',
-    'ilpink': '\033[105m\033[30m',
-    'ilwhite': '\033[107m\033[30m',
+    ('black', '', '\033[30m', '\033[40m'),
+    ('red', 'r', '\033[31m', '\033[41m'),
+    ('yellow', 'y', '\033[33m', '\033[43m'),
+    ('green', 'g', '\033[32m', '\033[42m'),
+    ('cyan', 'c', '\033[36m', '\033[46m'),
+    ('blue', 'b', '\033[34m', '\033[44m'),
+    ('magenta', 'm', '\033[35m', '\033[45m'),
+    ('pink', 'p', '\033[35m', '\033[45m'),
+    ('white', 'w', '\033[37m', '\033[47m'),
+    ('gray', 'gr', '\033[90m', '\033[100m'),
+    ('lred', 'lr', '\033[91m', '\033[101m'),
+    ('lyellow', 'ly', '\033[93m', '\033[103m'),
+    ('lgreen', 'lg', '\033[92m', '\033[102m'),
+    ('lcyan', 'lc', '\033[96m', '\033[106m'),
+    ('lblue', 'lb', '\033[94m', '\033[104m'),
+    ('lmagenta', 'lm', '\033[95m', '\033[105m'),
+    ('lpink', 'lp', '\033[95m', '\033[105m'),
+    ('lwhite', 'lw', '\033[97m', '\033[107m'),
+    ('black', 'k', '\033[30m', '\033[40m'),
 }
 
-DEFAULT_COLOR = COLORS['default']
+COLOR_RESET = '\033[0m'
 
 
 class UnknowColor(Exception):
@@ -56,12 +35,19 @@ class UnknowColor(Exception):
         super().__init__("Unknown color: " + color)
 
 
-def get_color(color):
+def get_color_code(color):
     """Return color value based on color name"""
-    for name, value in COLORS.items():
-        if name.startswith(color.lower()):
-            return value
+    for name, short, fg, bg in COLORS:
+        if color in (name, short):
+            return fg, bg
     raise UnknowColor(color)
+
+
+def get_color(color):
+    if ':' in color:
+        fg, bg = color.split(':')
+        return get_color_code(bg)[1] + get_color_code(fg)[0]
+    return COLOR_RESET + get_color_code(color)[0]
 
 
 def action_decode(actions):
@@ -107,9 +93,9 @@ def process(args):
                 color, mark, start, stop = params
                 color_value = get_color(color)
                 if start in line:
-                    graph[index] = color_value + mark + DEFAULT_COLOR
+                    graph[index] = color_value + mark + COLOR_RESET
                 elif stop in line:
-                    graph[index] = color_value + '.' * len(mark) + DEFAULT_COLOR
+                    graph[index] = color_value + '.' * len(mark) + COLOR_RESET
         line_color = None
         if args.line:
             for color, patterns in highlight_line.items():
@@ -118,16 +104,16 @@ def process(args):
                         line_color = color
                         break
                 if line_color:
-                    colored_line = line_color + colored_line + DEFAULT_COLOR
+                    colored_line = line_color + colored_line + COLOR_RESET
                     break
         if args.word:
             if line_color is None:
-                line_color = DEFAULT_COLOR
+                line_color = COLOR_RESET
             for color, patterns in highlight_word.items():
                 for pattern in patterns:
                     if pattern in line:
                         colored_line = colored_line.replace(
-                            pattern, color + pattern + line_color)
+                            pattern, color + pattern + COLOR_RESET + line_color)
         print(' '.join(graph) + '  ' + colored_line)
 
 

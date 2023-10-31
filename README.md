@@ -45,61 +45,30 @@ $ highlight -g c C connection.lock connection.unlock -g y G "gate open" "gate cl
 
 ## supported colors
 
-### foreground colors
+    - k   black
+    - r   red
+    - y   yellow
+    - g   green
+    - c   cyan
+    - b   blue
+    - m   magenta
+    - p   pink
+    - w   white
+    - gr  gray
+    - lr  lred
+    - ly  lyellow
+    - lg  lgreen
+    - lc  lcyan
+    - lb  lblue
+    - lm  lmagenta
+    - lp  lpink
+    - lw  lwhite
 
-#### normal
+### COLOR format
 
-- `default`
-- `black`
-- `red`
-- `yellow`
-- `green`
-- `cyan`
-- `blue`
-- `magenta`
-- `pink`
-- `white`
-
-#### light
-
-- `gray`
-- `lred`
-- `lyellow`
-- `lgreen`
-- `lcyan`
-- `lblue`
-- `lmagenta`
-- `lpink`
-- `lwhite`
-
-### backround colors (inverse)
-
-#### normal
-
-- `idefault`
-- `iblack`
-- `ired`
-- `iyellow`
-- `igreen`
-- `icyan`
-- `iblue`
-- `imagenta`
-- `ipink`
-- `iwhite`
-
-#### light
-
-- `igray`
-- `ilred`
-- `ilyellow`
-- `ilgreen`
-- `ilcyan`
-- `ilblue`
-- `ilmagenta`
-- `ilpink`
-- `ilwhite`
-
-As color you can use any case and also only first character(s) like `Green`, `GRE` or `g`
+    - foreground             lr   lred
+    - :background            :g   :green
+    - foreground:background  w:b  white:blue
 
 ## Help
 
@@ -127,9 +96,7 @@ options:
 ## Installation
 
 ```
-git clone https://github.com/pavelrevak/highlight.git
-cd highlight
-pip install .
+pip install git+https://github.com/pavelrevak/highlight.git
 ```
 
 ### Uninstall
